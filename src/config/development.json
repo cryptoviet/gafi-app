@@ -1,4 +1,4 @@
 {
   "PROVIDER_SOCKET": "ws://127.0.0.1:9944",
-  "GRAPHQL_ENDPOINT": "127.0.0.1:3000"
+  "GRAPHQL_ENDPOINT": "http://localhost:3000"
 }

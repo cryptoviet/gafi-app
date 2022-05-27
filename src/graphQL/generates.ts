@@ -723,7 +723,7 @@ export type SponsoredPoolsQueryVariables = Exact<{
 }>;
 
 
-export type SponsoredPoolsQuery = { __typename?: 'Query', sponsoredPools?: { __typename?: 'SponsoredPoolsConnection', totalCount: number, nodes: Array<{ __typename?: 'SponsoredPool', id: string, poolId: string, amount: any, poolOwner: string, targets: any, discount: number, txLimit: number, createdAt?: any | null } | null>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean } } | null };
+export type SponsoredPoolsQuery = { __typename?: 'Query', sponsoredPools?: { __typename?: 'SponsoredPoolsConnection', totalCount: number, nodes: Array<{ __typename?: 'SponsoredPool', id: string, amount: any, poolOwner: string, targets: any, discount: number, txLimit: number, createdAt?: any | null } | null>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean } } | null };
 
 export type TransfersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -736,7 +736,6 @@ export const SponsoredPoolsDocument = `
   sponsoredPools(first: $first, offset: $offset, filter: $filter) {
     nodes {
       id
-      poolId
       amount
       poolOwner
       targets

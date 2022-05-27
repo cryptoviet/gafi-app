@@ -10,7 +10,6 @@ const sponsoredPoolQuery = gql`
     sponsoredPools(first: $first, offset: $offset, filter: $filter) {
       nodes {
         id
-        poolId
         amount
         poolOwner
         targets

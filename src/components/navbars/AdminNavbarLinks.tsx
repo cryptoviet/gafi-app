@@ -85,7 +85,7 @@ const AdminNavbarLinks: FC<IProps> = props => {
   }));
 
   const initialAddress =
-    keyringOptions && keyringOptions.length > 0 ? keyringOptions[0].value : '';
+    keyringOptions && keyringOptions.length > 0 ? keyringOptions[1].value : '';
 
   // Set the initial address
   useEffect(() => {

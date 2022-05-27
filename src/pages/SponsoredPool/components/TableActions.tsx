@@ -53,7 +53,7 @@ const TableActions: React.FC<IProps> = ({ poolId }) => {
     }
   );
 
-  const isJoinedPool = !!joinedPoolInfo?.ticketType.asSponsored.toHuman();
+  const isJoinedPool = !!joinedPoolInfo?.ticketType.toHuman();
 
   const onJoinPool = async () => {
     setIsLoading(true);
@@ -117,7 +117,8 @@ const TableActions: React.FC<IProps> = ({ poolId }) => {
     }
   };
 
-  return joinedPoolInfo?.ticketType.asSponsored.toHuman() === poolId ? (
+  return joinedPoolInfo?.ticketType.isSponsored &&
+    joinedPoolInfo?.ticketType.asSponsored.toHuman() === poolId ? (
     <Button
       color="red.300"
       variant="solid"
