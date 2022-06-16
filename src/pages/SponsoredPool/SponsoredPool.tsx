@@ -1,12 +1,14 @@
 import {
   Box,
   Button,
+  chakra,
   HStack,
   Icon,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { mdiPlus } from '@mdi/js';
+import { isValidMotionProp, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQueryParam } from 'use-query-params';
@@ -26,6 +28,10 @@ import {
 } from 'graphQL/generates';
 import { useSubstrateState } from 'substrate-lib';
 import * as constants from 'utils/constants';
+
+const ChakraBox = chakra(motion.div, {
+  shouldForwardProp: prop => isValidMotionProp(prop) || prop === 'children',
+});
 
 const SponsoredPoolPage: React.FC = () => {
   const { t } = useTranslation();
@@ -73,7 +79,12 @@ const SponsoredPoolPage: React.FC = () => {
   );
 
   return (
-    <>
+    <ChakraBox
+      initial={{ x: 10, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      // @ts-ignore
+      transition={{ duration: 0.5 }}
+    >
       {featureFlag.isDisplayNewDashboardUI ? (
         <>
           <Banner
@@ -191,7 +202,7 @@ const SponsoredPoolPage: React.FC = () => {
           )}
         </Box>
       )}
-    </>
+    </ChakraBox>
   );
 };
 

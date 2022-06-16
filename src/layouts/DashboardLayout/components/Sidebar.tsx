@@ -1,4 +1,4 @@
-import { Box, Heading, Icon, Image, Text } from '@chakra-ui/react';
+import { Box, Heading, Icon, Image, Text, CSSObject } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -11,13 +11,16 @@ const SideBar = () => {
   const { t } = useTranslation();
   const activeRoute = (routeName: string) =>
     location.pathname === routeName ? 'active' : '';
+
   return (
     <Card sx={sidebarStyled}>
       <Box sx={sidebarHead}>
         <Image src="/assets/layout/logo.svg" alt="Gafi logo" />
-        <Heading ml={4}>GAFI</Heading>
+        <Heading display={{ '2xl': 'block', xl: 'none' }} ml={4}>
+          GAFI
+        </Heading>
       </Box>
-      <Box sx={{ width: '100%' }}>
+      <Box>
         {React.Children.toArray(
           routes.map(route => (
             <NavLink to={route.layout + route.path}>
@@ -31,7 +34,12 @@ const SideBar = () => {
                 <Icon w={18} h={18}>
                   <path fill="currentColor" d={route.icon} />
                 </Icon>
-                <Text fontWeight="semibold" fontSize="md" ml={7}>
+                <Text
+                  display={{ '2xl': 'block', xl: 'none' }}
+                  fontWeight="semibold"
+                  fontSize="md"
+                  ml={7}
+                >
                   {t(route.name)}
                 </Text>
               </Box>
@@ -39,7 +47,12 @@ const SideBar = () => {
           ))
         )}
       </Box>
-      <Text mt={20} opacity="inherit" fontSize="sm">
+      <Text
+        display={{ '2xl': 'block', xl: 'none' }}
+        mt={20}
+        opacity="inherit"
+        fontSize="sm"
+      >
         &copy; copyright by cryptoviet
       </Text>
     </Card>
@@ -48,9 +61,9 @@ const SideBar = () => {
 
 export default SideBar;
 
-const sidebarStyled = {
-  minWidth: '20vw',
-  flex: 2,
+const sidebarStyled: CSSObject = {
+  minWidth: { '2xl': '360px', xl: '120px' },
+  w: { '2xl': '360px', xl: '120px' },
   alignItems: 'center',
   py: 10,
 };
@@ -60,8 +73,8 @@ const sidebarHead = {
   justifyContent: 'flex-start',
   alignItems: 'center',
   width: '100%',
-  mb: 20,
-  pl: 8,
+  mb: { '2xl': 20, xl: 10 },
+  pl: { '2xl': 8, xl: 4 },
 };
 
 const menuItem = {
