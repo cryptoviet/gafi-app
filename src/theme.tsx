@@ -99,8 +99,8 @@ const PanelContent: ComponentStyleConfig = {
 
 const breakpoints = createBreakpoints({
   sm: '320px',
-  md: '768px',
-  lg: '960px',
+  md: '740px',
+  lg: '1024px',
   xl: '1200px',
 });
 

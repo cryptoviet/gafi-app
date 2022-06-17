@@ -216,7 +216,12 @@ const JoinPool = () => {
             bannerBg="/assets/layout/upfront-banner-bg.png"
             btnLink="https://wiki.gafi.network/learn/upfront-pool"
           />
-          <Box sx={{ display: 'flex' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { base: 'column', lg: 'row' },
+            }}
+          >
             {React.Children.toArray(
               pools.map((pool: IPool, index: number) => (
                 <Pool sx={index !== 0 ? { ml: 4 } : {}} pool={pool} />

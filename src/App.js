@@ -1,4 +1,5 @@
 import { Box, Portal, useDisclosure } from '@chakra-ui/react'
+import { AnimatePresence } from 'framer-motion'
 import DashboardLayout from 'layouts/DashboardLayout'
 import React, { createRef, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -125,11 +126,13 @@ function Main() {
         {getRoute() ? (
           <PanelContent>
             <PanelContainer>
-              <Switch>
-                {React.Children.toArray(getRoutes(routes))}
-                <Redirect from="/admin" to="/admin/dashboard" />
-                <Redirect from="/" to="/admin/dashboard" />
-              </Switch>
+              <AnimatePresence>
+                <Switch>
+                  {React.Children.toArray(getRoutes(routes))}
+                  <Redirect from="/admin" to="/admin/dashboard" />
+                  <Redirect from="/" to="/admin/dashboard" />
+                </Switch>
+              </AnimatePresence>
             </PanelContainer>
           </PanelContent>
         ) : null}
