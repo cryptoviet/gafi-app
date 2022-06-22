@@ -1,13 +1,15 @@
 import { Box, Button, HStack, Text, useToast, VStack } from '@chakra-ui/react';
-import {
-  GafiPrimitivesTicket,
-  GafiPrimitivesTicketTicketInfo,
-} from '@polkadot/types/lookup';
+import { GafiPrimitivesTicket } from '@polkadot/types/lookup';
 import { ISubmittableResult } from '@polkadot/types/types';
 import { formatBalance } from '@polkadot/util';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import {
+  QueryKey,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+} from 'react-query';
 
 import Pool, { IPool } from './components/Pool';
 
@@ -18,25 +20,46 @@ import { getFromAcct, handleTxError } from 'components/utils';
 import { PoolInfo } from 'interfaces/pool';
 import { useSubstrateState } from 'substrate-lib';
 
+function useQueryStream<T>(
+  queryKey: QueryKey,
+  config?: Omit<
+    UseQueryOptions<T | undefined, unknown, T | undefined, QueryKey>,
+    'queryKey' | 'queryFn'
+  >
+) {
+  const { api, currentAccount } = useSubstrateState();
+  const queryClient = useQueryClient();
+  const queryResult = useQuery<T | undefined>(
+    queryKey,
+    async (): Promise<T | undefined> => {
+      if (api) {
+        await api.query.stakingPool.tickets(
+          currentAccount?.address as string,
+          data => {
+            if (data.isSome) {
+              queryClient.setQueryData(queryKey, data.unwrap());
+            } else {
+              queryClient.setQueryData(queryKey, undefined);
+            }
+          }
+        );
+      }
+      return undefined;
+    },
+    config
+  );
+
+  return queryResult;
+}
+
 const StakingPool = () => {
   const { t } = useTranslation();
   const toast = useToast();
   const { api, currentAccount, chainDecimal } = useSubstrateState();
   const [selectedPool, setSelectedPool] = useState('');
 
-  const { data: joinedPoolInfo, refetch } = useQuery(
+  const { data: joinedPoolInfo } = useQueryStream<GafiPrimitivesTicket>(
     ['getJoinedPool', currentAccount],
-    async (): Promise<GafiPrimitivesTicketTicketInfo | undefined> => {
-      if (api) {
-        const res = await api.query.pool.tickets(
-          currentAccount?.address as string
-        );
-        if (res.isSome) {
-          return res.unwrap();
-        }
-        return undefined;
-      }
-    },
     {
       enabled: !!currentAccount,
     }
@@ -156,7 +179,6 @@ const StakingPool = () => {
         isClosable: true,
         status: 'success',
       });
-      refetch();
       refetchJoinedStakingPoolInfo();
       setSelectedPool('');
     } else {
