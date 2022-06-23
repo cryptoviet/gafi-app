@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  chakra,
   Icon,
   IconButton,
   Input,
@@ -27,6 +28,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { mdiContentCopy } from '@mdi/js';
+import { AnimateSharedLayout, isValidMotionProp, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
@@ -65,6 +67,14 @@ interface ISponsoredPoolTableProps {
   isLoading: boolean;
 }
 
+const ChakraTbody = chakra(motion.tbody, {
+  /**
+   * Allow motion props and the children prop to be forwarded.
+   * All other chakra props not matching the motion props will still be forwarded.
+   */
+  shouldForwardProp: prop => isValidMotionProp(prop) || prop === 'children',
+});
+
 const SponsoredPoolTable = (props: ISponsoredPoolTableProps) => {
   const { t } = useTranslation();
   const { title, captions, sponsoredPools, children, limitRow, isLoading } =
@@ -101,28 +111,47 @@ const SponsoredPoolTable = (props: ISponsoredPoolTableProps) => {
                   )}
                 </Tr>
               </Thead>
-              <Tbody justifyContent="flex-start">
+              <AnimateSharedLayout>
                 {!isLoading ? (
                   sponsoredPools.length ? (
-                    React.Children.toArray(
-                      sponsoredPools.map(pool => (
-                        <SponsoredPoolTableRow
-                          pool={pool}
-                          onClick={() => setSelectedPool(pool)}
-                        />
-                      ))
-                    )
+                    <ChakraTbody
+                      layoutId="table-rows"
+                      // @ts-ignore
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      cursor="pointer"
+                      justifyContent="flex-start"
+                    >
+                      {React.Children.toArray(
+                        sponsoredPools.map(pool => (
+                          <SponsoredPoolTableRow
+                            pool={pool}
+                            onClick={() => setSelectedPool(pool)}
+                          />
+                        ))
+                      )}
+                    </ChakraTbody>
                   ) : (
                     <EmptyRow columnAmount={6} />
                   )
                 ) : (
-                  React.Children.toArray(
-                    SkeletonArray.map(() => (
-                      <SkeletonLoadingRow columnAmount={limitRow} />
-                    ))
-                  )
+                  <ChakraTbody
+                    layoutId="table-rows"
+                    // @ts-ignore
+                    transition={{ delay: 0.3 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    cursor="pointer"
+                    justifyContent="flex-start"
+                  >
+                    {React.Children.toArray(
+                      SkeletonArray.map(() => (
+                        <SkeletonLoadingRow columnAmount={limitRow} />
+                      ))
+                    )}
+                  </ChakraTbody>
                 )}
-              </Tbody>
+              </AnimateSharedLayout>
 
               {/* <TableCaption>{}</TableCaption> */}
             </Table>
