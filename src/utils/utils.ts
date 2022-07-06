@@ -1,6 +1,8 @@
+import { ApiPromise } from '@polkadot/api';
 import { AddressOrPair, SignerOptions } from '@polkadot/api/types';
 import { web3FromSource } from '@polkadot/extension-dapp';
 import { KeyringPair } from '@polkadot/keyring/types';
+import { EventRecord } from '@polkadot/types/interfaces';
 import { encodeAddress } from '@polkadot/util-crypto';
 
 interface ContractValueParams {
@@ -48,7 +50,7 @@ export const covertToContractValue = ({
   const afterDot =
     strVal.indexOf('.') > -1 ? strVal.length - strVal.indexOf('.') - 1 : 0;
   const toInteger = strVal.replace('.', '');
-  const returnVal = parseInt(toInteger) * 10 ** (decimal - afterDot);
+  const returnVal = parseInt(toInteger, 10) * 10 ** (decimal - afterDot);
   return returnVal.toLocaleString('fullwide', { useGrouping: false });
 };
 
@@ -64,14 +66,14 @@ export function countDecimalPlaces(value: number): number {
   return p;
 }
 
-export function isNotNumber(value: any): boolean {
+export function isNotNumber(value: number): boolean {
   return (
     typeof value !== 'number' || Number.isNaN(value) || !Number.isFinite(value)
   );
 }
 
-function toNumber(value: any) {
-  const num = parseFloat(value);
+function toNumber(value: string | number) {
+  const num = parseFloat(value.toString());
   return isNotNumber(num) ? 0 : num;
 }
 
@@ -128,7 +130,7 @@ export const handleTxError = (events: any, api: any, toast: any) => {
   events.forEach(({ event }: any) => {
     if (api.events.system.ExtrinsicFailed.is(event)) {
       // extract the data for this event
-      const [dispatchError, dispatchInfo] = event.data;
+      const [dispatchError] = event.data;
       let errorInfo;
 
       // decode the error

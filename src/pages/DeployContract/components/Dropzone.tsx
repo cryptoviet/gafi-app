@@ -29,7 +29,7 @@ const Dropzone: React.FC<DropzoneProps> = ({ onUploadFile }) => {
       }
       // Do something with the files
     },
-    [files]
+    [files.length, onUploadFile]
   );
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
