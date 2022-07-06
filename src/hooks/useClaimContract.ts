@@ -6,8 +6,8 @@ import { useMutation } from 'react-query';
 
 import useLoadContracts from './useLoadContracts';
 
-import { getFromAcct, handleTxError } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
+import { getFromAcct, handleTxError } from 'utils';
 
 const useClaimContract = (onSuccess: () => void) => {
   const { t } = useTranslation();

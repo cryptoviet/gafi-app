@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 
-import { getFromAcct, handleTxError } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
 import { ISponsoredPoolForm } from 'pages/SponsoredPool/components/ModalAddSponsoredPool';
+import { getFromAcct, handleTxError } from 'utils';
 
 const useCreatePool = (onSuccess: () => void) => {
   const [isLoading, setIsLoading] = useState(false);

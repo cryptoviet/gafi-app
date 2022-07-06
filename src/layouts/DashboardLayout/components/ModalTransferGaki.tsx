@@ -25,10 +25,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import NumberInput from 'components/numberInput/NumberInput';
-import { shorten } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
 import useTransferGaki from 'hooks/useTransferGaki';
 import { usePolkadotBalance } from 'hooks/useUserBalance';
+import { shorten } from 'utils';
 
 interface Iprops {
   isOpen: boolean;

@@ -3,8 +3,8 @@ import { formatBalance } from '@polkadot/util';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 
-import { acctAddr } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
+import { acctAddr } from 'utils';
 
 export const usePolkadotBalance = () => {
   const { api, currentAccount, chainDecimal } = useSubstrateState();

@@ -15,9 +15,9 @@ import { useTranslation } from 'react-i18next';
 
 import ModalChangeContractOwner from './ModalChangeContractOwner';
 
-import { shorten } from 'components/utils';
 import { IResponseContract } from 'hooks/useLoadContracts';
 import useMessageToast from 'hooks/useMessageToast';
+import { shorten } from 'utils';
 
 interface IProps {
   contract: IResponseContract;

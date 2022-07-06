@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { acctAddr } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
+import { acctAddr } from 'utils';
 import * as constants from 'utils/constants';
 
 export interface IResponseContract {

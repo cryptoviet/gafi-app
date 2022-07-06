@@ -8,9 +8,9 @@ import Dropzone from './components/Dropzone';
 
 import Banner from 'components/Banner';
 import Card from 'components/card/Card';
-import { shorten } from 'components/utils';
 import useDeploy from 'hooks/useDeploy';
 import useMessageToast from 'hooks/useMessageToast';
+import { shorten } from 'utils';
 
 const DeployContract = () => {
   const [contractFiles, setContractFiles] = useState<any>([]);

@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { useWallet } from 'use-wallet';
 import Web3 from 'web3';
 
-import { getFromAcct, handleTxError } from 'components/utils';
 import { useSubstrateState } from 'contexts/substrateContext';
+import { getFromAcct, handleTxError } from 'utils';
 
 const useMappingAccount = () => {
   const toast = useToast();

@@ -79,7 +79,9 @@
   },
   "devDependencies": {
     "@polkadot/typegen": "^8.1.1",
+    "@testing-library/react": "release-12.x",
     "@tsconfig/recommended": "^1.0.1",
+    "@types/jest": "^28.1.4",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.43",
     "@types/react-copy-to-clipboard": "^5.0.2",

@@ -8,7 +8,9 @@ interface IProps {
 const EmptyRow: React.FC<IProps> = ({ columnAmount }) => (
   <Tr>
     <Td colSpan={columnAmount}>
-      <Text fontSize="2xl">Empty data!</Text>
+      <Text data-testid="empty-data" fontSize="2xl">
+        Empty data!
+      </Text>
     </Td>
   </Tr>
 );

@@ -3,9 +3,8 @@ import { mdiWaterPump } from '@mdi/js';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getFromAcct, handleTxError } from '../utils';
-
 import { useSubstrateState } from 'contexts/substrateContext';
+import { getFromAcct, handleTxError } from 'utils';
 
 const Faucet = () => {
   const { api, currentAccount } = useSubstrateState();
